@@ -1,0 +1,48 @@
+<!-- Overlay Login untuk index.html Campang Raya -->
+<style>
+#login-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.7);z-index:9999;backdrop-filter:blur(4px)}
+#login-card{width:100%;max-width:400px;background:#fff;padding:28px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.25);font-family:Inter,system-ui,sans-serif}
+#login-card h2{margin:0 0 10px;font-size:20px;color:#0f172a;text-align:center}
+#login-card p{margin:0 0 18px;color:#334155;font-size:13px;text-align:center}
+#login-card input{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:12px;font-size:14px}
+#login-card button{width:100%;padding:10px;border-radius:8px;border:0;background:#007bff;color:#fff;font-weight:600;cursor:pointer}
+#login-error{color:#b91c1c;background:#fff5f5;padding:8px;border-radius:8px;margin-bottom:12px;display:none;font-size:13px;text-align:center}
+#logoutBtn{position:fixed;top:14px;right:14px;background:#ef4444;color:#fff;padding:8px 12px;border:0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;display:none;z-index:10000}
+</style>
+
+<div id="login-overlay" aria-hidden="false">
+  <div id="login-card">
+    <h2>Login ke Dashboard</h2>
+    <p>Masukkan kredensial Biznet Anda</p>
+    <div id="login-error"></div>
+    <input id="login-username" type="text" placeholder="Email" autocomplete="username" />
+    <input id="login-password" type="password" placeholder="Password" autocomplete="current-password" />
+    <label style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><input id="login-remember" type="checkbox"/> <span style="font-size:13px;color:#334155">Ingat saya</span></label>
+    <button id="login-button">Masuk</button>
+  </div>
+</div>
+
+<button id="logoutBtn">Logout</button>
+
+<script>
+const USERS = ['jatra_radinta@biznetnetworks.com','mahmud_farizi@biznetnetworks.com'];
+const PASSWORD = 'Biznet123!';
+const EXPIRY_MS = 1000*60*60*4; // 4 jam
+const overlay=document.getElementById('login-overlay');
+const errBox=document.getElementById('login-error');
+const logoutBtn=document.getElementById('logoutBtn');
+
+function showErr(msg){errBox.style.display='block';errBox.textContent=msg;}
+function hideErr(){errBox.style.display='none';errBox.textContent='';}
+function saveSession(user,remember){const s={user,ts:Date.now()};if(remember)localStorage.setItem('campang_auth',JSON.stringify(s));else sessionStorage.setItem('campang_auth',JSON.stringify(s));}
+function getSession(){try{return JSON.parse(localStorage.getItem('campang_auth')||sessionStorage.getItem('campang_auth')||'null');}catch{return null;}}
+function clearSession(){localStorage.removeItem('campang_auth');sessionStorage.removeItem('campang_auth');}
+function valid(s){return s&&USERS.includes(s.user)&&Date.now()-s.ts<EXPIRY_MS;}
+
+function doLogin(){hideErr();const u=(document.getElementById('login-username').value||'').trim().toLowerCase();const p=document.getElementById('login-password').value||'';const r=document.getElementById('login-remember').checked;if(!u||!p){showErr('Isi username & password');return;}if(!USERS.includes(u)){showErr('User tidak dikenal');return;}if(p!==PASSWORD){showErr('Password salah');return;}saveSession(u,r);overlay.style.display='none';logoutBtn.style.display='block';}
+function doLogout(){clearSession();alert('Anda telah logout.');location.reload();}
+logoutBtn.addEventListener('click',doLogout);
+document.getElementById('login-button').addEventListener('click',doLogin);
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&overlay.style.display!=='none')doLogin();});
+(function init(){const s=getSession();if(valid(s)){overlay.style.display='none';logoutBtn.style.display='block';}else{clearSession();overlay.style.display='flex';}})();
+</script>

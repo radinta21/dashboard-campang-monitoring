@@ -1,0 +1,251 @@
+/* style.css */
+
+/* General Body and Header */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    background-color: #F8F9FA; /* Latar belakang abu-abu muda modern */
+    color: #333;
+    line-height: 1.6;
+}
+
+.app-header {
+    background-color: #004B90; /* Warna biru gelap Biznet */
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-title {
+    color: #004B90; /* Warna biru Biznet untuk judul */
+    font-weight: bold;
+}
+
+/* Wrapper and Sidebar */
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #004B90; /* Warna biru gelap Biznet */
+    color: #fff;
+    transition: all 0.3s;
+    height: 100vh; /* Full height */
+    position: sticky; /* Sticky sidebar */
+    top: 0; /* Align to top */
+    z-index: 1000; /* Ensure it stays on top */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+#sidebar.active {
+    margin-left: -250px; /* Hide sidebar */
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #003F7A; /* Warna biru sedikit lebih gelap */
+    text-align: center;
+}
+
+#sidebar .sidebar-logo {
+    max-width: 80px;
+    margin-bottom: 10px;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #003F7A;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar ul li a:hover {
+    color: #004B90;
+    background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #004B90;
+    background: #fff;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #003F7A;
+}
+
+/* Page Content */
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+/* Navbar Toggle Button */
+#sidebarCollapse {
+    background-color: #004B90;
+    border: none;
+    color: white;
+}
+
+#sidebarCollapse:hover {
+    background-color: #003F7A;
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.075); /* Subtle shadow */
+}
+
+.card-title {
+    color: #004B90;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Table Styling */
+.table th, .table td {
+    vertical-align: middle;
+    font-size: 0.85em; /* Smaller font for dense table */
+}
+
+.table thead th {
+    background-color: #004B90;
+    color: white;
+    border-color: #003F7A;
+    white-space: nowrap; /* Prevent wrapping in headers */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 75, 144, 0.05); /* Light blue on hover */
+}
+
+/* Pagination */
+.pagination .page-item.active .page-link {
+    background-color: #004B90;
+    border-color: #004B90;
+}
+
+.pagination .page-link {
+    color: #004B90;
+}
+
+.pagination .page-link:hover {
+    color: #003F7A;
+}
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+    height: 400px; /* Fixed height for charts */
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Modals */
+.modal-header {
+    background-color: #004B90;
+    color: white;
+}
+
+.modal-header .close {
+    color: white;
+    opacity: 1;
+}
+
+/* Virtual Account Modal Styling */
+.va-print-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.va-header-logo {
+    margin-bottom: 20px;
+}
+
+.va-logo {
+    max-width: 150px; /* Adjust as needed */
+    height: auto;
+}
+
+.va-print-content p {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.va-print-content strong {
+    color: #004B90;
+}
+
+/* Alert messages */
+.alert-info {
+    color: #004B90;
+    background-color: #e0f2f7; /* Light blue background */
+    border-color: #b3e0ed;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #content {
+        width: 100%;
+    }
+    #sidebarCollapse span {
+        display: none; /* Hide 'Menu' text on small screens */
+    }
+    .navbar-title {
+        font-size: 1.2em;
+    }
+    .row.mb-4.align-items-end .col-md-2.d-flex {
+        margin-top: 15px; /* Add space for apply button on small screens */
+    }
+}
